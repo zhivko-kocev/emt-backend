@@ -1,15 +1,14 @@
-package mk.ukim.finki.emt_backend.services.implementations;
+package mk.ukim.finki.emt_backend.services.domain.implementations;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import mk.ukim.finki.emt_backend.dtos.BookDto;
-import mk.ukim.finki.emt_backend.models.Book;
-import mk.ukim.finki.emt_backend.models.Category;
+import mk.ukim.finki.emt_backend.models.domain.Book;
+import mk.ukim.finki.emt_backend.models.enumerations.Category;
 import mk.ukim.finki.emt_backend.repositories.BookRepository;
-import mk.ukim.finki.emt_backend.services.BookService;
+import mk.ukim.finki.emt_backend.services.domain.BookService;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -36,20 +35,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<Book> save(BookDto book) {
+    public Optional<Book> save(Book book) {
 
-        if (book.author() == null
-                || book.availableCopies() == null
-                || book.category() == null
-                || book.name() == null || book.name().isEmpty()) {
+        if (book.getAuthor() == null
+                || book.getAvailableCopies() == null
+                || book.getCategory() == null
+                || book.getName() == null || book.getName().isEmpty()) {
             return Optional.empty();
         }
 
-        return Optional.of(books.save(new Book(book.name(), book.category(), book.author(), book.availableCopies())));
+        return Optional.of(books.save(book));
     }
 
     @Override
-    public Optional<Book> update(Long id, BookDto book) {
+    public Optional<Book> update(Long id, Book book) {
         Optional<Book> found = books.findById(id);
 
         if (!found.isPresent()) {
@@ -58,20 +57,20 @@ public class BookServiceImpl implements BookService {
 
         Book b = found.get();
 
-        if (book.author() != null) {
-            b.setAuthor(book.author());
+        if (book.getAuthor() != null) {
+            b.setAuthor(book.getAuthor());
         }
 
-        if (book.availableCopies() != null) {
-            b.setAvailableCopies(book.availableCopies());
+        if (book.getAvailableCopies() != null) {
+            b.setAvailableCopies(book.getAvailableCopies());
         }
 
-        if (book.category() != null) {
-            b.setCategory(book.category());
+        if (book.getCategory() != null) {
+            b.setCategory(book.getCategory());
         }
 
-        if (book.name() != null && !book.name().isEmpty()) {
-            b.setName(book.name());
+        if (book.getName() != null && !book.getName().isEmpty()) {
+            b.setName(book.getName());
         }
         return Optional.of(this.books.save(b));
     }

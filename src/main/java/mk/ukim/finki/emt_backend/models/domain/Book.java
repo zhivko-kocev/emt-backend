@@ -1,8 +1,9 @@
-package mk.ukim.finki.emt_backend.models;
+package mk.ukim.finki.emt_backend.models.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import mk.ukim.finki.emt_backend.models.enumerations.Category;
 
 @Data
 @Entity

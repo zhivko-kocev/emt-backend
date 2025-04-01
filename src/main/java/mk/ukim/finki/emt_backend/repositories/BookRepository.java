@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import mk.ukim.finki.emt_backend.models.Book;
-import mk.ukim.finki.emt_backend.models.Category;
+import mk.ukim.finki.emt_backend.models.domain.Book;
+import mk.ukim.finki.emt_backend.models.enumerations.Category;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {

@@ -1,14 +1,13 @@
-package mk.ukim.finki.emt_backend.services.implementations;
+package mk.ukim.finki.emt_backend.services.domain.implementations;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import mk.ukim.finki.emt_backend.dtos.CountryDto;
-import mk.ukim.finki.emt_backend.models.Country;
+import mk.ukim.finki.emt_backend.models.domain.Country;
 import mk.ukim.finki.emt_backend.repositories.CountryRepository;
-import mk.ukim.finki.emt_backend.services.CountryService;
+import mk.ukim.finki.emt_backend.services.domain.CountryService;
 
 @Service
 public class CountryServiceImpl implements CountryService {
@@ -35,20 +34,20 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public Optional<Country> save(CountryDto country) {
+    public Optional<Country> save(Country country) {
 
-        if (country.name() == null
-                || country.name().isEmpty()
-                || country.continent() == null
-                || country.continent().isEmpty()) {
+        if (country.getName() == null
+                || country.getName().isEmpty()
+                || country.getContinent() == null
+                || country.getContinent().isEmpty()) {
             return Optional.empty();
         }
 
-        return Optional.of(countries.save(new Country(country.name(), country.continent())));
+        return Optional.of(countries.save(country));
     }
 
     @Override
-    public Optional<Country> update(Long id, CountryDto country) {
+    public Optional<Country> update(Long id, Country country) {
 
         Optional<Country> found = countries.findById(id);
 
@@ -58,12 +57,12 @@ public class CountryServiceImpl implements CountryService {
 
         Country c = found.get();
 
-        if (country.name() != null && !country.continent().isEmpty()) {
-            c.setName(country.name());
+        if (country.getName() != null && !country.getContinent().isEmpty()) {
+            c.setName(country.getName());
         }
 
-        if (country.continent() != null && !country.continent().isEmpty()) {
-            c.setContinent(country.continent());
+        if (country.getContinent() != null && !country.getContinent().isEmpty()) {
+            c.setContinent(country.getContinent());
         }
 
         return Optional.of(countries.save(c));

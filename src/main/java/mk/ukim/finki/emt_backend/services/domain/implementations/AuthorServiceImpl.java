@@ -1,14 +1,13 @@
-package mk.ukim.finki.emt_backend.services.implementations;
+package mk.ukim.finki.emt_backend.services.domain.implementations;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import mk.ukim.finki.emt_backend.dtos.AuthorDto;
-import mk.ukim.finki.emt_backend.models.Author;
+import mk.ukim.finki.emt_backend.models.domain.Author;
 import mk.ukim.finki.emt_backend.repositories.AuthorRepository;
-import mk.ukim.finki.emt_backend.services.AuthorService;
+import mk.ukim.finki.emt_backend.services.domain.AuthorService;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -35,21 +34,21 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Optional<Author> save(AuthorDto author) {
+    public Optional<Author> save(Author author) {
 
-        if (author.country() == null
-                || author.name() == null
-                || author.name().isEmpty()
-                || author.surname() == null
-                || author.surname().isEmpty()) {
+        if (author.getCountry() == null
+                || author.getName() == null
+                || author.getName().isEmpty()
+                || author.getSurname() == null
+                || author.getSurname().isEmpty()) {
             return Optional.empty();
         }
 
-        return Optional.of(authors.save(new Author(author.name(), author.surname(), author.country())));
+        return Optional.of(authors.save(author));
     }
 
     @Override
-    public Optional<Author> update(Long id, AuthorDto author) {
+    public Optional<Author> update(Long id, Author author) {
         Optional<Author> found = authors.findById(id);
 
         if (!found.isPresent()) {
@@ -58,16 +57,16 @@ public class AuthorServiceImpl implements AuthorService {
 
         Author a = found.get();
 
-        if (author.country() != null) {
-            a.setCountry(author.country());
+        if (author.getCountry() != null) {
+            a.setCountry(author.getCountry());
         }
 
-        if (author.name() != null && !author.name().isEmpty()) {
-            a.setName(author.name());
+        if (author.getName() != null && !author.getName().isEmpty()) {
+            a.setName(author.getName());
         }
 
-        if (author.surname() != null && !author.surname().isEmpty()) {
-            a.setSurname(author.surname());
+        if (author.getSurname() != null && !author.getSurname().isEmpty()) {
+            a.setSurname(author.getSurname());
         }
         return Optional.of(authors.save(a));
     }

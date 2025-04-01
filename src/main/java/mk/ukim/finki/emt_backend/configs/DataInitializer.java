@@ -1,10 +1,14 @@
 package mk.ukim.finki.emt_backend.configs;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 import mk.ukim.finki.emt_backend.models.domain.Author;
 import mk.ukim.finki.emt_backend.models.domain.Country;
+import mk.ukim.finki.emt_backend.models.domain.User;
+import mk.ukim.finki.emt_backend.models.enumerations.Role;
+import mk.ukim.finki.emt_backend.repositories.UserRepository;
 import mk.ukim.finki.emt_backend.services.domain.AuthorService;
 import mk.ukim.finki.emt_backend.services.domain.CountryService;
 
@@ -12,10 +16,15 @@ import mk.ukim.finki.emt_backend.services.domain.CountryService;
 public class DataInitializer {
     private final AuthorService authors;
     private final CountryService countries;
+    private final UserRepository users;
+    private final PasswordEncoder passwordEncoder;
 
-    public DataInitializer(AuthorService authors, CountryService countries) {
+    public DataInitializer(AuthorService authors, CountryService countries, UserRepository users,
+            PasswordEncoder passwordEncoder) {
         this.authors = authors;
         this.countries = countries;
+        this.users = users;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
@@ -45,5 +54,20 @@ public class DataInitializer {
             authors.save(new Author("Lu", "Xun", countries.findById(9L).get()));
             authors.save(new Author("Rabindranath", "Tagore", countries.findById(10L).get()));
         }
+
+        users.save(new User(
+                "at",
+                passwordEncoder.encode("at"),
+                "Ana",
+                "Todorovska",
+                Role.ROLE_LIBRARIAN));
+
+        users.save(new User(
+                "user",
+                passwordEncoder.encode("user"),
+                "user",
+                "user",
+                Role.ROLE_USER));
+
     }
 }

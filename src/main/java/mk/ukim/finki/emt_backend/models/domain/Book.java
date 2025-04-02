@@ -30,8 +30,13 @@ public class Book {
         this.availableCopies = availableCopies;
     }
 
-    public void rentBook() {
-        availableCopies--;
+    public void rentBook(int quantity) {
+
+        if (availableCopies - quantity < 0) {
+            return;
+        }
+
+        availableCopies -= quantity;
     }
 
 }

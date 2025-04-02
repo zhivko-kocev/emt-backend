@@ -19,5 +19,5 @@ public interface BookService {
 
     void deleteById(Long id);
 
-    void rentBook(Long id);
+    void rentBook(Long id, int quantity);
 }

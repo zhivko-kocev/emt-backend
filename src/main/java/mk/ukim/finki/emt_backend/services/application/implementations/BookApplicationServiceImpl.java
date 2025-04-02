@@ -77,7 +77,7 @@ public class BookApplicationServiceImpl implements BookApplicationService {
     }
 
     @Override
-    public void rentBook(Long id) {
+    public void rentBook(Long id, int quantity) {
         Optional<Book> found = books.findById(id);
 
         if (!found.isPresent()) {
@@ -86,7 +86,7 @@ public class BookApplicationServiceImpl implements BookApplicationService {
 
         Book b = found.get();
 
-        b.rentBook();
+        b.rentBook(quantity);
 
         books.save(b);
     }

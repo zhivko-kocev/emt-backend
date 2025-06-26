@@ -6,6 +6,7 @@ import java.util.Optional;
 import mk.ukim.finki.emt_backend.dtos.createImpls.CreateBookDto;
 import mk.ukim.finki.emt_backend.dtos.displayImpls.DisplayBookDto;
 import mk.ukim.finki.emt_backend.models.enumerations.Category;
+import mk.ukim.finki.emt_backend.models.views.BooksPerAuthor;
 
 public interface BookApplicationService {
     List<DisplayBookDto> findAll();
@@ -21,4 +22,7 @@ public interface BookApplicationService {
     void deleteById(Long id);
 
     void rentBook(Long id, int quantity);
+
+    List<BooksPerAuthor> findAllApc();
+
 }

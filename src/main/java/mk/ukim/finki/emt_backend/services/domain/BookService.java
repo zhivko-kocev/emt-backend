@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import mk.ukim.finki.emt_backend.models.domain.Book;
 import mk.ukim.finki.emt_backend.models.enumerations.Category;
+import mk.ukim.finki.emt_backend.models.views.BooksPerAuthor;
 
 public interface BookService {
     List<Book> findAll();
@@ -20,4 +21,9 @@ public interface BookService {
     void deleteById(Long id);
 
     void rentBook(Long id, int quantity);
+
+    void refreshMaterializedView();
+
+    List<BooksPerAuthor> findAllApc();
+
 }

@@ -6,15 +6,19 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import mk.ukim.finki.emt_backend.models.domain.Author;
+import mk.ukim.finki.emt_backend.models.views.AuthorsPerCountry;
 import mk.ukim.finki.emt_backend.repositories.AuthorRepository;
+import mk.ukim.finki.emt_backend.repositories.AuthorsPerCountryRepository;
 import mk.ukim.finki.emt_backend.services.domain.AuthorService;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
     private AuthorRepository authors;
+    private AuthorsPerCountryRepository authpcountries;
 
-    public AuthorServiceImpl(AuthorRepository authors) {
+    public AuthorServiceImpl(AuthorRepository authors, AuthorsPerCountryRepository authpcountries) {
+        this.authpcountries = authpcountries;
         this.authors = authors;
     }
 
@@ -69,6 +73,15 @@ public class AuthorServiceImpl implements AuthorService {
             a.setSurname(author.getSurname());
         }
         return Optional.of(authors.save(a));
+    }
+
+    @Override
+    public void refreshMaterializedView() {
+        authpcountries.refreshMaterializedView();
+    }
+
+    public List<AuthorsPerCountry> findAllApc() {
+        return authpcountries.findAll();
     }
 
 }

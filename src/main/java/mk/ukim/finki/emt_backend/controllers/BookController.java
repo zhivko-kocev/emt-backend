@@ -5,12 +5,14 @@ import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import mk.ukim.finki.emt_backend.dtos.createImpls.CreateBookDto;
 import mk.ukim.finki.emt_backend.dtos.displayImpls.DisplayBookDto;
 import mk.ukim.finki.emt_backend.models.enumerations.Category;
+import mk.ukim.finki.emt_backend.models.views.BooksPerAuthor;
 import mk.ukim.finki.emt_backend.services.application.BookApplicationService;
 
 @RestController
@@ -76,5 +78,13 @@ public class BookController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/by-author")
+    @Operation(summary = "...", description = "...")
+    @ApiResponse(responseCode = "200", description = "...")
+    @ApiResponse(responseCode = "404", description = "...")
+    public List<BooksPerAuthor> displayBpa() {
+        return books.findAllApc();
     }
 }

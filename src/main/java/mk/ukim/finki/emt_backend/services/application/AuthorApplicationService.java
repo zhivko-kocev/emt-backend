@@ -4,6 +4,7 @@ import java.util.*;
 
 import mk.ukim.finki.emt_backend.dtos.createImpls.CreateAuthorDto;
 import mk.ukim.finki.emt_backend.dtos.displayImpls.DisplayAuthorDto;
+import mk.ukim.finki.emt_backend.models.views.AuthorsPerCountry;
 
 public interface AuthorApplicationService {
 
@@ -16,5 +17,7 @@ public interface AuthorApplicationService {
     Optional<DisplayAuthorDto> update(Long id, CreateAuthorDto author);
 
     void deleteById(Long id);
+
+    List<AuthorsPerCountry> findAllApc();
 
 }

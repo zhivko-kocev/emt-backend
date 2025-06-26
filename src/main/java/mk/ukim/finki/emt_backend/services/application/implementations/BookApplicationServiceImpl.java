@@ -10,6 +10,7 @@ import mk.ukim.finki.emt_backend.dtos.createImpls.CreateBookDto;
 import mk.ukim.finki.emt_backend.dtos.displayImpls.DisplayBookDto;
 import mk.ukim.finki.emt_backend.models.domain.Book;
 import mk.ukim.finki.emt_backend.models.enumerations.Category;
+import mk.ukim.finki.emt_backend.models.views.BooksPerAuthor;
 import mk.ukim.finki.emt_backend.services.application.BookApplicationService;
 import mk.ukim.finki.emt_backend.services.domain.AuthorService;
 import mk.ukim.finki.emt_backend.services.domain.BookService;
@@ -89,6 +90,10 @@ public class BookApplicationServiceImpl implements BookApplicationService {
         b.rentBook(quantity);
 
         books.save(b);
+    }
+
+    public List<BooksPerAuthor> findAllApc() {
+        return books.findAllApc();
     }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import mk.ukim.finki.emt_backend.dtos.createImpls.CreateAuthorDto;
 import mk.ukim.finki.emt_backend.dtos.displayImpls.DisplayAuthorDto;
+import mk.ukim.finki.emt_backend.models.views.AuthorsPerCountry;
 import mk.ukim.finki.emt_backend.services.application.AuthorApplicationService;
 
 @RestController
@@ -71,5 +72,13 @@ public class AuthorController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/by-country")
+    @Operation(summary = "...", description = "...")
+    @ApiResponse(responseCode = "200", description = "...")
+    @ApiResponse(responseCode = "404", description = "...")
+    public List<AuthorsPerCountry> displayBpa() {
+        return authors.findAllApc();
     }
 }

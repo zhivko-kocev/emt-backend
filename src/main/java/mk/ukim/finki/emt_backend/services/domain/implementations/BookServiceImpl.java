@@ -7,16 +7,20 @@ import org.springframework.stereotype.Service;
 
 import mk.ukim.finki.emt_backend.models.domain.Book;
 import mk.ukim.finki.emt_backend.models.enumerations.Category;
+import mk.ukim.finki.emt_backend.models.views.BooksPerAuthor;
 import mk.ukim.finki.emt_backend.repositories.BookRepository;
+import mk.ukim.finki.emt_backend.repositories.BooksPerAuthorRepository;
 import mk.ukim.finki.emt_backend.services.domain.BookService;
 
 @Service
 public class BookServiceImpl implements BookService {
 
     private BookRepository books;
+    private BooksPerAuthorRepository bpa;
 
-    public BookServiceImpl(BookRepository books) {
+    public BookServiceImpl(BookRepository books, BooksPerAuthorRepository bpa) {
         this.books = books;
+        this.bpa = bpa;
     }
 
     @Override
@@ -94,6 +98,15 @@ public class BookServiceImpl implements BookService {
         b.rentBook(quantity);
 
         books.save(b);
+    }
+
+    @Override
+    public void refreshMaterializedView() {
+        bpa.refreshMaterializedView();
+    }
+
+    public List<BooksPerAuthor> findAllApc() {
+        return bpa.findAll();
     }
 
 }

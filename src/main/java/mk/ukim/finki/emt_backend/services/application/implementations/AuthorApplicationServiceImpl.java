@@ -9,6 +9,7 @@ import mk.ukim.finki.emt_backend.dtos.DisplayDto;
 import mk.ukim.finki.emt_backend.dtos.createImpls.CreateAuthorDto;
 import mk.ukim.finki.emt_backend.dtos.displayImpls.DisplayAuthorDto;
 import mk.ukim.finki.emt_backend.models.domain.Author;
+import mk.ukim.finki.emt_backend.models.views.AuthorsPerCountry;
 import mk.ukim.finki.emt_backend.services.application.AuthorApplicationService;
 import mk.ukim.finki.emt_backend.services.domain.AuthorService;
 import mk.ukim.finki.emt_backend.services.domain.CountryService;
@@ -70,4 +71,7 @@ public class AuthorApplicationServiceImpl implements AuthorApplicationService {
         return Optional.of(DisplayDto.from(updated.get(), DisplayAuthorDto::new));
     }
 
+    public List<AuthorsPerCountry> findAllApc() {
+        return authors.findAllApc();
+    }
 }
